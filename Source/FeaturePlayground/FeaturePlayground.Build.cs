@@ -8,7 +8,7 @@ public class FeaturePlayground : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "MyFooModule" });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 
