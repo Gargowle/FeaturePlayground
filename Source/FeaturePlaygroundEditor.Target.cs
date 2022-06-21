@@ -10,5 +10,6 @@ public class FeaturePlaygroundEditorTarget : TargetRules
 		Type = TargetType.Editor;
 		DefaultBuildSettings = BuildSettingsVersion.V2;
 		ExtraModuleNames.AddRange( new string[] { "FeaturePlayground" } );
+		ExtraModuleNames.AddRange( new string[] { "EditorExampleTool" } );
 	}
 }
