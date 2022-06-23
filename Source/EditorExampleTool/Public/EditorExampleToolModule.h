@@ -12,10 +12,11 @@ public:
 	virtual void AddModuleListeners() override;
 
 	// convenience functions
+	/*
+	 * Getter function for this module that allows for easier and less verbose access to the module than the FModuleManager::LoadModuleChecked method
+	 */
 	static inline FEditorExampleTool& Get()
 	{
-		// TODO: completely understan what this method call does;
-		// TODO: write according docstring
 		return FModuleManager::LoadModuleChecked<FEditorExampleTool>("EditorExampleTool");
 	}
 
