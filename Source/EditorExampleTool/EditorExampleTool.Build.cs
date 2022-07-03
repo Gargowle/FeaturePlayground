@@ -6,6 +6,6 @@ public class EditorExampleTool : ModuleRules
 	public EditorExampleTool(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PublicDependencyModuleNames.AddRange(new string[] {});
-		PrivateDependencyModuleNames.AddRange(new string[] {"Core", "Engine", "CoreUObject"});
+		PrivateDependencyModuleNames.AddRange(new string[] {"Core", "Engine", "CoreUObject", "Slate", "SlateCore", "LevelEditor"});
 	}
 }

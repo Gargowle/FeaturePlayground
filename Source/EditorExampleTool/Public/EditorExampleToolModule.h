@@ -2,6 +2,12 @@
 
 #include "EditorExampleToolModuleInterface.h"
 
+class FExtensibilityManager;
+class FExtender;
+class FWorkspaceItem;
+class FMenuBarBuilder;
+class FMenuBuilder;
+
 class FEditorExampleTool : public IEditorExampleToolModuleInterface
 {
 public:
@@ -25,4 +31,16 @@ public:
 		return FModuleManager::Get().IsModuleLoaded("EditorExampleTool");
 	}
 
+public:
+	void AddMenuExtension(const FMenuExtensionDelegate& ExtensionDelegate, FName ExtensionHook, const TSharedPtr<FUICommandList>& CommandList = NULL, EExtensionHook::Position Position = EExtensionHook::Before);
+	static TSharedRef<FWorkspaceItem> GetMenuRoot();
+
+protected:
+	TSharedPtr<FExtensibilityManager> LevelEditorMenuExtensibilityManager;
+	TSharedPtr<FExtender> MenuExtender;
+
+	static TSharedRef<FWorkspaceItem> MenuRoot;
+
+	void MakePullownMenu(FMenuBarBuilder& MenuBarBuilder);
+	void FillPulldownMenu(FMenuBuilder& MenuBuilder);
 };
