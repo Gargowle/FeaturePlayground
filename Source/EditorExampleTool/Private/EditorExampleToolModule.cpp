@@ -3,6 +3,7 @@
 #include "LevelEditor.h"
 #include "Framework/MultiBox/MultiBoxBuilder.h"
 #include "Framework/Docking/WorkspaceItem.h"
+#include "MenuTool/MenuTool.h"
 
 IMPLEMENT_MODULE(FEditorExampleTool, EditorExampleTool)
 
@@ -12,6 +13,7 @@ TSharedRef<FWorkspaceItem> FEditorExampleTool::MenuRoot = FWorkspaceItem::NewGro
 void FEditorExampleTool::AddModuleListeners()
 {
 	// Add tools here once a tool actually is implemented in this module
+	ModuleListeners.Add(MakeShareable<MenuTool>(new MenuTool));
 }
 
 void FEditorExampleTool::StartupModule()

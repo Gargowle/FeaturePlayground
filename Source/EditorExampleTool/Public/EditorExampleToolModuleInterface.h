@@ -9,8 +9,9 @@
 class IEditorExampleToolModuleListenerInterface
 {
 public:
-	virtual void OnStartupModule();
-	virtual void OnShutdownModule();
+	// pure virtual functions -> no implementations
+	virtual void OnStartupModule() = 0;
+	virtual void OnShutdownModule() = 0;
 };
 
 // TODO: find out if modules need a prefix such as "Fort" or "S", as they were project wide prefixes in Fortnite / Tom Looman project
