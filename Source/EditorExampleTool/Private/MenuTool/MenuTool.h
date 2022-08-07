@@ -11,7 +11,8 @@ public:
 	virtual void OnStartupModule() override;
 	virtual void OnShutdownModule() override;
 
-	void MakeMenuEntry(FMenuBuilder& menuBuilder);
+	void MakeMenuEntries(FMenuBuilder& menuBuilder);
+	void MakeSubMenu(FMenuBuilder& menuBuilder);
 
 protected:
 	// Define and map a menu item to a function
@@ -19,6 +20,8 @@ protected:
 
 	void MapCommands();
 
-	// Function to be called when user clicks on the menu item
+	// Functions to be called when user clicks on the menu item
 	void MenuCommand1();
+	void MenuCommand2();
+	void MenuCommand3();
 };
