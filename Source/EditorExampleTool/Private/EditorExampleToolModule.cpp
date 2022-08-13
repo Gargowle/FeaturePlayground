@@ -43,7 +43,7 @@ void FEditorExampleTool::ShutdownModule()
 }
 
 void FEditorExampleTool::AddMenuExtension(const FMenuExtensionDelegate& ExtensionDelegate, FName ExtensionHook,
-	const TSharedPtr<FUICommandList>& CommandList, EExtensionHook::Position Position)
+	const TSharedPtr<FUICommandList>& CommandList /*= NULL */, EExtensionHook::Position Position /* = EExtensionHook::Before */)
 {
 	MenuExtender->AddMenuExtension(ExtensionHook, Position, CommandList, ExtensionDelegate);
 }
