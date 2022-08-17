@@ -24,4 +24,11 @@ protected:
 	void MenuCommand1();
 	void MenuCommand2();
 	void MenuCommand3();
+
+	// properties used for small widget inside the pulldown menu to set tags on a selected actor
+	FName TagToAdd;
+
+	FReply AddTag();
+	FText GetTagToAddText() const;
+	void OnTagToAddTextCommitted(const FText& InText, ETextCommit::Type CommitInfo);
 };

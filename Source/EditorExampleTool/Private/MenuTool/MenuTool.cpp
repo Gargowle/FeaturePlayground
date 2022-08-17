@@ -1,8 +1,12 @@
 #include "MenuTool.h"
 
+#include "Editor.h"
 #include "EditorExampleToolModule.h"
+#include "ScopedTransaction.h"
+#include "Selection.h"
 #include "Framework/Commands/UICommandList.h"
 #include "Framework/Commands/Commands.h"
+#include "Widgets/Input/SEditableTextBox.h"
 
 //Required for UI_COMMAND macro
 #define LOCTEXT_NAMESPACE "MenuTool"
@@ -54,6 +58,30 @@ void MenuTool::MakeMenuEntries(FMenuBuilder& menuBuilder)
 		FText::FromString("This is an example sub menu"),
 		FNewMenuDelegate::CreateSP(this, &MenuTool::MakeSubMenu)
 		);
+
+	// custom widget inside the menu
+	TSharedRef<SWidget> AddTagWidget =
+		SNew(SHorizontalBox)
+		+ SHorizontalBox::Slot()
+		.AutoWidth()
+		.Padding(5,0,0,0)
+		.VAlign(VAlign_Center)
+		[
+			SNew(SEditableTextBox)
+			.MinDesiredWidth(50)
+			.Text(this, &MenuTool::GetTagToAddText)
+			.OnTextCommitted(this, &MenuTool::OnTagToAddTextCommitted)
+		]
+		+ SHorizontalBox::Slot()
+		.AutoWidth()
+		.Padding(5,0,5,0)
+		.VAlign(VAlign_Center)
+		[
+			SNew(SButton)
+			.Text(FText::FromString("Add Tag"))
+			.OnClicked(this, &MenuTool::AddTag)
+		];
+	menuBuilder.AddWidget(AddTagWidget, FText::FromString(""));
 }
 
 void MenuTool::MakeSubMenu(FMenuBuilder& menuBuilder)
@@ -84,6 +112,36 @@ void MenuTool::MenuCommand2()
 void MenuTool::MenuCommand3()
 {
 	UE_LOG(LogClass, Log, TEXT("clicked MenuCommand3")); //TODO: actually use LOCTEXT
+}
+
+FReply MenuTool::AddTag()
+{
+	if (!TagToAdd.IsNone())
+	{
+		// wrap it around a transaction so it supports undo
+		const FScopedTransaction Transaction(FText::FromString("Add Tag"));
+		for (FSelectionIterator It(GEditor->GetSelectedActorIterator()); It; ++It)
+		{
+			AActor* Actor = static_cast<AActor*>(*It);
+			if (!Actor->Tags.Contains(TagToAdd))
+			{
+				Actor->Modify();
+				Actor->Tags.Add(TagToAdd);
+			}
+		}
+	}
+	return FReply::Handled();
+}
+
+FText MenuTool::GetTagToAddText() const
+{
+	return FText::FromName(TagToAdd);
+}
+
+void MenuTool::OnTagToAddTextCommitted(const FText& InText, ETextCommit::Type CommitInfo)
+{
+	FString str = InText.ToString();
+	TagToAdd = FName(*str.TrimStartAndEnd());
 }
 
 
