@@ -36,27 +36,27 @@ public:
 	}
 };
 
-void MenuTool::OnStartupModule()
+void FMenuTool::OnStartupModule()
 {
 	CommandList = MakeShareable<FUICommandList>(new FUICommandList);
 
 	MenuToolCommands::Register();
 	MapCommands();
-	FEditorExampleTool::Get().AddMenuExtension(FMenuExtensionDelegate::CreateRaw(this, &MenuTool::MakeMenuEntries), FName("Section_1"), CommandList);
+	FEditorExampleTool::Get().AddMenuExtension(FMenuExtensionDelegate::CreateRaw(this, &FMenuTool::MakeMenuEntries), FName("Section_1"), CommandList);
 }
 
-void MenuTool::OnShutdownModule()
+void FMenuTool::OnShutdownModule()
 {
 	MenuToolCommands::Unregister();
 }
 
-void MenuTool::MakeMenuEntries(FMenuBuilder& menuBuilder)
+void FMenuTool::MakeMenuEntries(FMenuBuilder& menuBuilder)
 {
 	menuBuilder.AddMenuEntry(MenuToolCommands::Get().MenuCommand1);
 	menuBuilder.AddSubMenu(
 		FText::FromString("Sub Menu"),
 		FText::FromString("This is an example sub menu"),
-		FNewMenuDelegate::CreateSP(this, &MenuTool::MakeSubMenu)
+		FNewMenuDelegate::CreateSP(this, &FMenuTool::MakeSubMenu)
 		);
 
 	// custom widget inside the menu
@@ -69,8 +69,8 @@ void MenuTool::MakeMenuEntries(FMenuBuilder& menuBuilder)
 		[
 			SNew(SEditableTextBox)
 			.MinDesiredWidth(50)
-			.Text(this, &MenuTool::GetTagToAddText)
-			.OnTextCommitted(this, &MenuTool::OnTagToAddTextCommitted)
+			.Text(this, &FMenuTool::GetTagToAddText)
+			.OnTextCommitted(this, &FMenuTool::OnTagToAddTextCommitted)
 		]
 		+ SHorizontalBox::Slot()
 		.AutoWidth()
@@ -79,42 +79,42 @@ void MenuTool::MakeMenuEntries(FMenuBuilder& menuBuilder)
 		[
 			SNew(SButton)
 			.Text(FText::FromString("Add Tag"))
-			.OnClicked(this, &MenuTool::AddTag)
+			.OnClicked(this, &FMenuTool::AddTag)
 		];
 	menuBuilder.AddWidget(AddTagWidget, FText::FromString(""));
 }
 
-void MenuTool::MakeSubMenu(FMenuBuilder& menuBuilder)
+void FMenuTool::MakeSubMenu(FMenuBuilder& menuBuilder)
 {
 	menuBuilder.AddMenuEntry(MenuToolCommands::Get().MenuCommand2);
 	menuBuilder.AddMenuEntry(MenuToolCommands::Get().MenuCommand3);
 }
 
-void MenuTool::MapCommands()
+void FMenuTool::MapCommands()
 {
 	const MenuToolCommands& Commands = MenuToolCommands::Get();
 
-	CommandList->MapAction(Commands.MenuCommand1, FExecuteAction::CreateSP(this, &MenuTool::MenuCommand1), FCanExecuteAction());
-	CommandList->MapAction(Commands.MenuCommand2, FExecuteAction::CreateSP(this, &MenuTool::MenuCommand2), FCanExecuteAction());
-	CommandList->MapAction(Commands.MenuCommand3, FExecuteAction::CreateSP(this, &MenuTool::MenuCommand3), FCanExecuteAction());
+	CommandList->MapAction(Commands.MenuCommand1, FExecuteAction::CreateSP(this, &FMenuTool::MenuCommand1), FCanExecuteAction());
+	CommandList->MapAction(Commands.MenuCommand2, FExecuteAction::CreateSP(this, &FMenuTool::MenuCommand2), FCanExecuteAction());
+	CommandList->MapAction(Commands.MenuCommand3, FExecuteAction::CreateSP(this, &FMenuTool::MenuCommand3), FCanExecuteAction());
 }
 
-void MenuTool::MenuCommand1()
+void FMenuTool::MenuCommand1()
 {
 	UE_LOG(LogClass, Log, TEXT("clicked MenuCommand1")); //TODO: actually use LOCTEXT
 }
 
-void MenuTool::MenuCommand2()
+void FMenuTool::MenuCommand2()
 {
 	UE_LOG(LogClass, Log, TEXT("clicked MenuCommand2")); //TODO: actually use LOCTEXT
 }
 
-void MenuTool::MenuCommand3()
+void FMenuTool::MenuCommand3()
 {
 	UE_LOG(LogClass, Log, TEXT("clicked MenuCommand3")); //TODO: actually use LOCTEXT
 }
 
-FReply MenuTool::AddTag()
+FReply FMenuTool::AddTag()
 {
 	if (!TagToAdd.IsNone())
 	{
@@ -133,12 +133,12 @@ FReply MenuTool::AddTag()
 	return FReply::Handled();
 }
 
-FText MenuTool::GetTagToAddText() const
+FText FMenuTool::GetTagToAddText() const
 {
 	return FText::FromName(TagToAdd);
 }
 
-void MenuTool::OnTagToAddTextCommitted(const FText& InText, ETextCommit::Type CommitInfo)
+void FMenuTool::OnTagToAddTextCommitted(const FText& InText, ETextCommit::Type CommitInfo)
 {
 	FString str = InText.ToString();
 	TagToAdd = FName(*str.TrimStartAndEnd());

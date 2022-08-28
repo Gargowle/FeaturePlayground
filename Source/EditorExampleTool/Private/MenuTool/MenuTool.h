@@ -3,10 +3,10 @@
 #include "EditorExampleToolModuleInterface.h"
 
 
-class MenuTool : public IEditorExampleToolModuleListenerInterface, public TSharedFromThis<MenuTool>
+class FMenuTool : public IEditorExampleToolModuleListenerInterface, public TSharedFromThis<FMenuTool>
 {
 public:
-	virtual ~MenuTool() {}
+	virtual ~FMenuTool() {}
 
 	virtual void OnStartupModule() override;
 	virtual void OnShutdownModule() override;

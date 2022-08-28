@@ -13,7 +13,7 @@ TSharedRef<FWorkspaceItem> FEditorExampleTool::MenuRoot = FWorkspaceItem::NewGro
 void FEditorExampleTool::AddModuleListeners()
 {
 	// Add tools here once a tool actually is implemented in this module
-	ModuleListeners.Add(MakeShareable<MenuTool>(new MenuTool));
+	ModuleListeners.Add(MakeShareable<FMenuTool>(new FMenuTool));
 }
 
 void FEditorExampleTool::StartupModule()
