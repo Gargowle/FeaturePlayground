@@ -4,6 +4,7 @@
 #include "Framework/MultiBox/MultiBoxBuilder.h"
 #include "Framework/Docking/WorkspaceItem.h"
 #include "MenuTool/MenuTool.h"
+#include "TabTool/TabTool.h"
 
 IMPLEMENT_MODULE(FEditorExampleTool, EditorExampleTool)
 
@@ -14,6 +15,7 @@ void FEditorExampleTool::AddModuleListeners()
 {
 	// Add tools here once a tool actually is implemented in this module
 	ModuleListeners.Add(MakeShareable<FMenuTool>(new FMenuTool));
+	ModuleListeners.Add(MakeShareable<FTabTool>(new FTabTool));
 }
 
 void FEditorExampleTool::StartupModule()
