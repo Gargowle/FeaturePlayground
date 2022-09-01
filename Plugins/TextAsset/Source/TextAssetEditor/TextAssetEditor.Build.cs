@@ -21,6 +21,7 @@ public class TextAssetEditor : ModuleRules
                 "Slate",
                 "SlateCore",
                 "TextAsset",
+                "UnrealEd"
             }
         );
     }
