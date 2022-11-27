@@ -6,6 +6,8 @@
 #include "GameFramework/GameModeBase.h"
 #include "FeaturePlaygroundGameModeBase.generated.h"
 
+class FMyRunnable;
+
 /**
  * 
  */
@@ -16,5 +18,10 @@ class FEATUREPLAYGROUND_API AFeaturePlaygroundGameModeBase : public AGameModeBas
 
 public:
 	virtual void StartPlay() override;
+
+	virtual ~AFeaturePlaygroundGameModeBase() override;
+
+protected:
+	FMyRunnable* MyRunnable;
 	
 };
